@@ -143,18 +143,19 @@ form .signup-link a:hover{
          <div class="title">
             Login Form
          </div>
-         <form action="#">
+         <form action="{{route('loginprocess')}}" method="post">
+          @csrf
             <div class="field">
-               <input type="text" required>
+               <input type="text" name="email" required>
                <label>Email Address</label>
             </div>
             <div class="field">
-               <input type="password" required>
+               <input type="password" name="password" required>
                <label>Password</label>
             </div>
             <div class="content">
                <div class="checkbox">
-                  <input type="checkbox" id="remember-me">
+                  <input type="checkbox" name="remember_me" id="remember-me">
                   <label for="remember-me">Remember me</label>
                </div>
                <div class="pass-link">

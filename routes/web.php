@@ -18,4 +18,11 @@ use Illuminate\Support\Facades\Route;
 route::get('/',[HomeController::class,'index'])->name('home');
 route::get('/login',[HomeController::class,'login'])->name('login');
 route::get('/registration',[HomeController::class,'registration'])->name('registration');
+route::post('/registerprocess',[HomeController::class,'registrationprocess'])->name('registerprocess');
+
 route::post('/loginprocess',[HomeController::class,'loginprocess'])->name('loginprocess');
+
+route::get('/logout',[HomeController::class,'logout'])->name('logout');
+route::get('/myaccount',[HomeController::class,'myaccount'])->name('myaccount');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

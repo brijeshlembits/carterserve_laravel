@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -17,10 +18,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
         'password',
+        'phone',
     ];
 
     /**
@@ -42,4 +45,34 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function registerprocess($postdata)
+    {
+        $user = new User();
+        $user->name = $postdata['name'];
+        $user->email = $postdata['email'];
+        $user->password = $this->encryptpassword($postdata['password']);
+        $user->phone = $postdata['phone'];
+        $user->save();
+        return $user;
+    }
+    public function loginprocess($postdata)
+    {
+        $user = User::where('email', $postdata['email'])->first();
+        if ($this->checkPassword($postdata['password'], $user->password)){
+            $user->save();
+            Auth::guard()->login($user);
+
+            return redirect()->route('home');
+        }else{
+            return redirect()->back();
+        }
+    }
+    public function encryptpassword($password)
+    {
+        return \Illuminate\Support\Facades\Hash::make($password);
+    }
+    public function checkPassword($password, $encryptedPassword)
+    {
+        return \Illuminate\Support\Facades\Hash::check($password, $encryptedPassword);
+    }
 }
