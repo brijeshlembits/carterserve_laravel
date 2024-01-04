@@ -55,18 +55,7 @@ class User extends Authenticatable
         $user->save();
         return $user;
     }
-    public function loginprocess($postdata)
-    {
-        $user = User::where('email', $postdata['email'])->first();
-        if ($this->checkPassword($postdata['password'], $user->password)){
-            $user->save();
-            Auth::guard()->login($user);
-
-            return redirect()->route('home');
-        }else{
-            return redirect()->back();
-        }
-    }
+    
     public function encryptpassword($password)
     {
         return \Illuminate\Support\Facades\Hash::make($password);
@@ -75,4 +64,5 @@ class User extends Authenticatable
     {
         return \Illuminate\Support\Facades\Hash::check($password, $encryptedPassword);
     }
+  
 }

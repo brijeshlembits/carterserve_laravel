@@ -26,3 +26,18 @@ route::get('/logout',[HomeController::class,'logout'])->name('logout');
 route::get('/myaccount',[HomeController::class,'myaccount'])->name('myaccount');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/bookcreate', [App\Http\Controllers\HomeController::class, 'bookcreate'])->name('bookcreate');
+Route::post('/city', [App\Http\Controllers\HomeController::class, 'city'])->name('city');
+Route::post('/place', [App\Http\Controllers\HomeController::class, 'place'])->name('place');
+
+// admin
+
+Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/country', [App\Http\Controllers\AdminController::class, 'country'])->name('country');
+Route::get('/countrycreate', [App\Http\Controllers\AdminController::class, 'countrycreate'])->name('countrycreate');
+Route::post('/countryprocess', [App\Http\Controllers\AdminController::class, 'countryprocess'])->name('countryprocess');
+Route::get('/countrydelete{id}', [App\Http\Controllers\AdminController::class, 'countrydelete'])->name('countrydelete');
+Route::get('/city', [App\Http\Controllers\AdminController::class, 'city'])->name('city');
+Route::get('/place', [App\Http\Controllers\AdminController::class, 'place'])->name('place');
+
+
