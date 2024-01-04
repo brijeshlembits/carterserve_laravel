@@ -22,7 +22,45 @@
         <div class="main-panel">
             <div class="content-wrapper pb-0">
 
-                @include('admin.section')
+                <div class="col-lg-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h3 class="card-title d-flex">Basic Table</h3> <a href={{route('placecreate')}} class="btn btn-info">+Create</a>
+                        </p>
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>City Name</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($place as $row=>$place)
+                              <tr>
+                                <td>{{$row+1}}</td>
+                                <td>{{$place->name}}</td>
+                                @foreach($city as $citys)
+                                
+                                @if($citys->id==$place->city_id)
+                                <td>{{$citys->name}}</td>
+                                @endif
+                                @endforeach
+                                <td><a href="{{route('placedelete',$place->id)}}" class="btn btn-danger">delete</a></td>
+                                
+                              </tr>
+                              @endforeach
+                             
+                              
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
 
 

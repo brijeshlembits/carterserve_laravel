@@ -13,6 +13,26 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <style>
+          #upload-container {
+            text-align: center;
+        }
+
+        #image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        #image-preview img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin: 5px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -22,46 +42,40 @@
         <div class="main-panel">
             <div class="content-wrapper pb-0">
 
-                <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h3 class="card-title d-flex">Basic Table</h3> <a href={{route('citycreate')}} class="btn btn-info">+Create</a>
-                        </p>
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Country_name</th>
-                                <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($city as $row=>$city)
-                              <tr>
-                                
-                                <td>{{$row+1}}</td>
-                                <td>{{$city->name}}</td>
-                                @foreach($countries as $country)
-                                @if($country->id==$city->country_id)
-                                <td>{{$country->name}}</td>
-                                @endif
-                                @endforeach
-                                <td><a href="{{route('citydelete',$city->id)}}" class="btn btn-danger">delete</a></td>
-                                
-                              </tr>
-                              @endforeach
-                             
-                              
-                              
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+                <div id="upload-container">
+                    <h1>Multiple Image Upload</h1>
+                    <form id="image-upload-form" enctype="multipart/form-data">
+                        <input type="file" id="image-input" name="images[]" multiple accept="image/*">
+                        <button type="submit">Upload Images</button>
+                    </form>
+            
+                    <div id="image-preview"></div>
+                </div>
+            
+                <script>
+                    const imageInput = document.getElementById('image-input');
+                    const imagePreview = document.getElementById('image-preview');
+            
+                    imageInput.addEventListener('change', handleImageUpload);
+            
+                    function handleImageUpload() {
+                        imagePreview.innerHTML = ''; // Clear previous preview
+            
+                        const files = imageInput.files;
+            
+                        for (const file of files) {
+                            const reader = new FileReader();
+            
+                            reader.onload = function (e) {
+                                const img = document.createElement('img');
+                                img.src = e.target.result;
+                                imagePreview.appendChild(img);
+                            };
+            
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>
 
 
 

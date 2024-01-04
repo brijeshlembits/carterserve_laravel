@@ -22,47 +22,33 @@
         <div class="main-panel">
             <div class="content-wrapper pb-0">
 
-                <div class="col-lg-6 grid-margin stretch-card">
+                <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
-                      <div class="card-body">
-                        <h3 class="card-title d-flex">Basic Table</h3> <a href={{route('citycreate')}} class="btn btn-info">+Create</a>
-                        </p>
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Country_name</th>
-                                <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($city as $row=>$city)
-                              <tr>
-                                
-                                <td>{{$row+1}}</td>
-                                <td>{{$city->name}}</td>
-                                @foreach($countries as $country)
-                                @if($country->id==$city->country_id)
-                                <td>{{$country->name}}</td>
-                                @endif
-                                @endforeach
-                                <td><a href="{{route('citydelete',$city->id)}}" class="btn btn-danger">delete</a></td>
-                                
-                              </tr>
-                              @endforeach
-                             
-                              
-                              
-                            </tbody>
-                          </table>
+                        <div class="card-body">
+                            <h4 class="card-title">Place form</h4>
+                            <p class="card-description"></p>
+                            <form class="forms-sample" action="{{ route('placeprocess') }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="exampleInputUsername1">Place</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputUsername1"
+                                        placeholder="Place Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect3">City Name</label>
+                                    <select  name="city_id" class="form-control form-control-sm" id="exampleFormControlSelect3">
+                                        @foreach($city as $citys)
+                                      <option value="{{$citys->id}}" >{{$citys->name}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+
+
+                                <button type="submit" class="btn btn-primary mr-2"> Submit </button>
+                            </form>
                         </div>
-                      </div>
                     </div>
-                  </div>
-
-
+                </div>
 
 
 

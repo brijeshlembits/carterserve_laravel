@@ -38,6 +38,14 @@ Route::get('/countrycreate', [App\Http\Controllers\AdminController::class, 'coun
 Route::post('/countryprocess', [App\Http\Controllers\AdminController::class, 'countryprocess'])->name('countryprocess');
 Route::get('/countrydelete{id}', [App\Http\Controllers\AdminController::class, 'countrydelete'])->name('countrydelete');
 Route::get('/city', [App\Http\Controllers\AdminController::class, 'city'])->name('city');
+Route::get('/citycreate', [App\Http\Controllers\AdminController::class, 'citycreate'])->name('citycreate');
+Route::post('/cityprocess', [App\Http\Controllers\AdminController::class, 'cityprocess'])->name('cityprocess');
+Route::get('/citydelete{id}', [App\Http\Controllers\AdminController::class, 'citydelete'])->name('citydelete');
 Route::get('/place', [App\Http\Controllers\AdminController::class, 'place'])->name('place');
+Route::get('/placecreate', [App\Http\Controllers\AdminController::class, 'placecreate'])->name('placecreate');
+Route::post('/placeprocess', [App\Http\Controllers\AdminController::class, 'placeprocess'])->name('placeprocess');
+Route::get('/placedelete{id}', [App\Http\Controllers\AdminController::class, 'placedelete'])->name('placedelete');
+Route::get('/gallery', [App\Http\Controllers\AdminController::class, 'gallery'])->name('gallery');
+Route::get('/creategallery', [App\Http\Controllers\AdminController::class, 'creategallery'])->name('creategallery');
 
 
