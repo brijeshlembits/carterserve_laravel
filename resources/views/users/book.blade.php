@@ -106,7 +106,7 @@
         $('#Country-dropdown').on('change', function() {
             var idCountry = this.value;
             $("#city-dropdown").html('');
-            $.ajax({
+             $.ajax({
                 url: "{{ route('city') }}",
                 type: 'post',
                 data: {

@@ -123,4 +123,7 @@ class HomeController extends Controller
         $place = Place::where(['city_id' => $request->city_id])->get();
         return response()->json($place);
     }
+    public function eventchange(Request $request){
+        dd($request->all());
+    }
 }

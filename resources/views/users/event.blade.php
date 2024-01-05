@@ -11,26 +11,24 @@
                         <span class="text-dark" style="width: 150px;">All Events</span>
                     </a>
                 </li>
+                
+                <?php $type=[
+                    "Weddings","Corporate","Cocktail","Buffer"
+                ];  
+                ?>
+                @csrf
+                
+                @foreach($type as $gall)
+                
                 <li class="nav-item p-2">
                     <a class="d-flex py-2 mx-2 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
-                        <span class="text-dark" style="width: 150px;">Wedding</span>
+                        <span class="text-dark"  onclick="change('{{$gall}}')"  style="width: 150px;" value="{{$gall}}">{{$gall}}</span>
                     </a>
                 </li>
-                <li class="nav-item p-2">
-                    <a class="d-flex mx-2 py-2 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#tab-3">
-                        <span class="text-dark" style="width: 150px;">Corporate</span>
-                    </a>
-                </li>
-                <li class="nav-item p-2">
-                    <a class="d-flex mx-2 py-2 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#tab-4">
-                        <span class="text-dark" style="width: 150px;">Cocktail</span>
-                    </a>
-                </li>
-                <li class="nav-item p-2">
-                    <a class="d-flex mx-2 py-2 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#tab-5">
-                        <span class="text-dark" style="width: 150px;">Buffet</span>
-                    </a>
-                </li>
+              
+                
+                @endforeach
+               
             </ul>
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
@@ -221,3 +219,27 @@
         </div>
     </div>
 </div>
+<script>
+
+function change(value){
+   var data=value;
+   $.ajax({
+    url:"{{route('eventchange')}}",
+    method:"post",
+    dataType:'json',
+    data: {
+                    category: data,
+                    _token: '{{ csrf_token() }}'
+                },
+    success:function(res){
+        console.log(res);
+    }
+
+
+
+   })
+console.log(value);
+}
+
+
+</script>
