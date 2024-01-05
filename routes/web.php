@@ -47,5 +47,7 @@ Route::post('/placeprocess', [App\Http\Controllers\AdminController::class, 'plac
 Route::get('/placedelete{id}', [App\Http\Controllers\AdminController::class, 'placedelete'])->name('placedelete');
 Route::get('/gallery', [App\Http\Controllers\AdminController::class, 'gallery'])->name('gallery');
 Route::get('/creategallery', [App\Http\Controllers\AdminController::class, 'creategallery'])->name('creategallery');
+Route::post('/uploadmultipleimage', [App\Http\Controllers\AdminController::class, 'uploadmultipleimage'])->name('uploadmultipleimage');
+Route::get('/deleteimage', [App\Http\Controllers\AdminController::class, 'deleteimage'])->name('deleteimage');
 
 

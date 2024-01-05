@@ -15,51 +15,59 @@
     <link rel="shortcut icon" href="assets/images/favicon.png" />
 
     <style>
-        .gallery-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+     .gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
 
-        .gallery-item {
-            width: 150px;
-            height: 150px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
+.gallery-item {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    margin-bottom: 23px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
 
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            display: block;
-        }
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure images cover the entire container */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: block;
+}
 
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
+.gallery-item:hover {
+    transform: scale(1.1); /* Increased scale on hover */
+}
 
-        .delete-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            padding: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-        }
+.delete-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 8px; /* Increased padding for a larger button */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
 
-        .delete-button:hover {
-            background-color: #c0392b;
-        }
+.delete-button:hover {
+    background-color: #c0392b;
+}
+.gallery-item p {
+    margin-top: 8px; /* Add space between the image and the paragraph */
+    font-size: 14px;
+    color: #333;
+    text-align: center; /* Center the text */
+}
+
     </style>
 </head>
 
@@ -71,31 +79,41 @@
             <div class="content-wrapper pb-0">
                 <div class="container">
                     <h2 class="text-center mb-4">Animated Gallery</h2>
-                    <a href="{{route('creategallery')}}" class="btn btn-info">+Create</a>
+                    <a href="{{ route('creategallery') }}" class="btn btn-info">+Create</a>
+
                     <div class="gallery-container">
-                        <div class="gallery-item">
-                            <img src="theme/img/menu-01.jpg" alt="Image 1">
-                            <a href="{{route('dashboard')}}"><button class="delete-button"><i class="fa fa-times"></i></button></a>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="theme/img/menu-02.jpg" alt="Image 2">
-                            <a href="{{route('dashboard')}}"><button class="delete-button"><i class="fa fa-times"></i></button></a>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="theme/img/blog-2.jpg" alt="Image 2">
-                            <a href="{{route('dashboard')}}"><button class="delete-button"><i class="fa fa-times"></i></button></a>
-                        </div>
-                        
-                        <!-- Add more gallery items as needed -->
-                    </div>
+                        <!-- Check if there are gallery items -->
+                        @if (count($gallery) > 0)
+                            @foreach ($gallery as $galleryItem)
+                                <?php
+                                $images = explode('|', $galleryItem->image);
+                                ?>
+                                @foreach ($images as $image)
+                                    <div class="gallery-item">
+                                        <img src="{{ URL::to($image) }}" alt="Gallery Image">
+                                        <a
+                                            href="{{ route('deleteimage', ['id' => $galleryItem->id, 'image' => $image]) }}">
+                                            <button class="delete-button"><i class="fa fa-times"></i></button>
+                                        </a>
+                                        <p value="{{ $galleryItem->category }}">{{ $galleryItem->category }}</p>
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        @else
+                            <p>No images in the gallery</p>
+                        @endif
+                    
+                    
+                    <!-- Add more gallery items as needed -->
                 </div>
-            
-                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             </div>
-            @include('admin.footer')
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         </div>
+        @include('admin.footer')
+    </div>
     </div>
 
     <!-- Bootstrap JS and Popper.js (for Bootstrap modal) -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Gallery;
 use App\Models\Place;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class HomeController extends Controller
         $country = Country::all();
         $city = City::all();
         $place = Place::all();
-        return view("users.index", compact('country', 'city', 'place'));
+        $gallery=Gallery::all();
+        return view("users.index", compact('country', 'city', 'place','gallery'));
     }
     public function login()
     {

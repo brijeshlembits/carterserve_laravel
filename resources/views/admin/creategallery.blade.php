@@ -44,38 +44,48 @@
 
                 <div id="upload-container">
                     <h1>Multiple Image Upload</h1>
-                    <form id="image-upload-form" enctype="multipart/form-data">
+                    <form id="image-upload-form" enctype="multipart/form-data" method="post" action="{{ route('uploadmultipleimage') }}">
+                        @csrf
+                        <label for="">Categories :</label>
+                        <select name="category">
+                            
+                            <option value="Wedding">Wedding</option>
+                            <option value="Corporate">Corporate</option>
+                            <option value="Cocktail">Cocktail</option>
+                            <option value="Buffer">Buffer</option>
+                        </select>
                         <input type="file" id="image-input" name="images[]" multiple accept="image/*">
                         <button type="submit">Upload Images</button>
                     </form>
-            
+                
                     <div id="image-preview"></div>
                 </div>
-            
+                
                 <script>
                     const imageInput = document.getElementById('image-input');
                     const imagePreview = document.getElementById('image-preview');
-            
+                
                     imageInput.addEventListener('change', handleImageUpload);
-            
+                
                     function handleImageUpload() {
                         imagePreview.innerHTML = ''; // Clear previous preview
-            
+                
                         const files = imageInput.files;
-            
+                
                         for (const file of files) {
                             const reader = new FileReader();
-            
+                
                             reader.onload = function (e) {
                                 const img = document.createElement('img');
                                 img.src = e.target.result;
                                 imagePreview.appendChild(img);
                             };
-            
+                
                             reader.readAsDataURL(file);
                         }
                     }
                 </script>
+                
 
 
 
