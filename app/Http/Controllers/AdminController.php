@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Gallery;
+use App\Models\Menu;
 use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -121,7 +122,7 @@ class AdminController extends Controller
         // dd($uplaod_path);
         Gallery::insert([
             'image' => implode('|', $image),
-            'category'=> $request->input('category'),
+            'category' => $request->input('category'),
         ]);
         return redirect()->route('gallery');
     }
@@ -137,11 +138,11 @@ class AdminController extends Controller
 
             $checkname = array_diff($checkname, [$image]);
             $check->update(['image' => implode('|', $checkname)]);
-          
+
             Storage::delete('images/' . $image);
             $count = $check->image;
             // dd($count);
-            if (strlen($count)==0) {
+            if (strlen($count) == 0) {
                 // dd(1);
                 $check->delete();
                 return redirect()->back();
@@ -150,5 +151,51 @@ class AdminController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+    public function menu(Request $request)
+    {
+
+        $menu = Menu::all();
+        return view('admin.menu', compact('menu'));
+    }
+    public function menucreate(Request $request)
+    {
+        return view('admin.menucreate');
+    }
+    public function menuprocess(Request $request){
+        if($id=$request->id){
+            $menu = Menu::find($id);
+            // dd($menu);
+            $menu->image= $request->input('old_image');
+            // dd( $menu->image);
+        }else{
+
+            $menu = new Menu();
+            if($data=$request->file('image')){
+                $image= $request->file('image').'.'.$request->image->extension();
+                $move=$request->image->move('images/', $image);
+                $menu->image=$move;
+    
+            }
+        }
+        $menu->title=$request->input('title');
+        $menu->description=$request->input('description');
+        $menu->price=$request->input('price');
+        $menu->category=$request->input('category');
+      
+        $menu->save();
+        return redirect()->route('menu');
+
+    }
+    public function menudelete(Request $request,$id){
+        $find=Menu::find($id);
+        $find->delete();
+        return redirect()->route('menu');
+
+    }
+    public function menuupdate(Request $request,$id){
+        $menu=Menu::find($id);
+        return view('admin.menucreate',compact('menu'));
+
     }
 }

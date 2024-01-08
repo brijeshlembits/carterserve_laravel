@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Gallery;
+use App\Models\Menu;
 use App\Models\Place;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class HomeController extends Controller
         $city = City::all();
         $place = Place::all();
         $gallery=Gallery::all();
-        return view("users.index", compact('country', 'city', 'place','gallery'));
+        $menu=Menu::all();
+        return view("users.index", compact('country', 'city', 'place','gallery','menu'));
     }
     public function login()
     {
@@ -124,6 +126,12 @@ class HomeController extends Controller
         return response()->json($place);
     }
     public function eventchange(Request $request){
-        dd($request->all());
+            $event=Gallery::where(['category'=> $request->category])->get();
+            
+            return response()->json($event);
+
+
+
+
     }
 }

@@ -50,5 +50,10 @@ Route::get('/gallery', [App\Http\Controllers\AdminController::class, 'gallery'])
 Route::get('/creategallery', [App\Http\Controllers\AdminController::class, 'creategallery'])->name('creategallery');
 Route::post('/uploadmultipleimage', [App\Http\Controllers\AdminController::class, 'uploadmultipleimage'])->name('uploadmultipleimage');
 Route::get('/deleteimage', [App\Http\Controllers\AdminController::class, 'deleteimage'])->name('deleteimage');
+Route::get('/menu', [App\Http\Controllers\AdminController::class, 'menu'])->name('menu');
+Route::get('/menucreate', [App\Http\Controllers\AdminController::class, 'menucreate'])->name('menucreate');
+Route::get('/menudelete{id}', [App\Http\Controllers\AdminController::class, 'menudelete'])->name('menudelete');
+Route::get('/menuupdate{id}', [App\Http\Controllers\AdminController::class, 'menuupdate'])->name('menuupdate');
+Route::post('/menuprocess', [App\Http\Controllers\AdminController::class, 'menuprocess'])->name('menuprocess');
 
 
