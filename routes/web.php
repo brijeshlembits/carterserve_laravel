@@ -30,6 +30,7 @@ Route::post('/bookcreate', [App\Http\Controllers\HomeController::class, 'bookcre
 Route::post('/city', [App\Http\Controllers\HomeController::class, 'city'])->name('city');
 Route::post('/place', [App\Http\Controllers\HomeController::class, 'place'])->name('place');
 Route::post('/eventchange', [App\Http\Controllers\HomeController::class, 'eventchange'])->name('eventchange');
+Route::post('/menuchange', [App\Http\Controllers\HomeController::class, 'menuchange'])->name('menuchange');
 
 // admin
 

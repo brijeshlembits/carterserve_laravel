@@ -21,9 +21,9 @@ class HomeController extends Controller
         $country = Country::all();
         $city = City::all();
         $place = Place::all();
-        $gallery=Gallery::all();
-        $menu=Menu::all();
-        return view("users.index", compact('country', 'city', 'place','gallery','menu'));
+        $gallery = Gallery::all();
+        $menu = Menu::all();
+        return view("users.index", compact('country', 'city', 'place', 'gallery', 'menu'));
     }
     public function login()
     {
@@ -36,22 +36,22 @@ class HomeController extends Controller
             return redirect()->back()->with('error', $validator)->withInput();
         } else {
             $user = User::where('email', $request->input('email'))->first();
-        if ($user->checkPassword($request->input('password'), $user->password)){
-           
-            if($user->user_type==1 || $user->user_type===1){
-                $user->save();
-                Auth::guard()->login($user);
-    
-                return redirect()->route('dashboard');
-            }else{
-            $user->save();
-            Auth::guard()->login($user);
+            if ($user->checkPassword($request->input('password'), $user->password)) {
 
-            return redirect()->route('home');
+                if ($user->user_type == 1 || $user->user_type === 1) {
+                    $user->save();
+                    Auth::guard()->login($user);
+
+                    return redirect()->route('dashboard');
+                } else {
+                    $user->save();
+                    Auth::guard()->login($user);
+
+                    return redirect()->route('home');
+                }
+            } else {
+                return redirect()->back();
             }
-        }else{
-            return redirect()->back();
-        }
         }
     }
 
@@ -125,13 +125,17 @@ class HomeController extends Controller
         $place = Place::where(['city_id' => $request->city_id])->get();
         return response()->json($place);
     }
-    public function eventchange(Request $request){
-            $event=Gallery::where(['category'=> $request->category])->get();
-            
-            return response()->json($event);
+    public function eventchange(Request $request)
+    {
+        $event = Gallery::where(['category' => $request->category])->get();
 
-
-
+        return response()->json($event);
+    }
+    public function menuchange(Request $request)
+    {
+        $menu=Menu::where(['category'=> $request->category])->get();
+        // dd($request);
+        return response()->json($menu);
 
     }
 }
