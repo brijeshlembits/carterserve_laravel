@@ -23,7 +23,7 @@
                     <li class="nav-item p-2">
                         <a class="d-flex py-2 mx-2 border border-primary bg-light rounded-pill" data-bs-toggle="pill"
                             href="#tab-2">
-                            <span class="text-dark" onclick="change('{{ $gall }}')" style="width: 150px;"
+                            <span class="text-dark" onclick="changeevent('{{ $gall }}')" style="width: 150px;"
                                 value="{{ $gall }}">{{ $gall }}</span>
                         </a>
                     </li>
@@ -151,7 +151,7 @@
     </div>
 </div>
 <script>
-    function change(value) {
+    function changeevent(value) {
         var data = value;
         $.ajax({
             url: "{{ route('eventchange') }}",
@@ -162,6 +162,7 @@
                 _token: '{{ csrf_token() }}'
             },
             success: function(res) {
+                console.log(res);
                 $('#createimg').html(''); // Clear existing content before appending new images
                 res.forEach(element => {
                     let image = element.image;
