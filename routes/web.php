@@ -32,6 +32,7 @@ Route::post('/place', [App\Http\Controllers\HomeController::class, 'place'])->na
 Route::post('/eventchange', [App\Http\Controllers\HomeController::class, 'eventchange'])->name('eventchange');
 Route::post('/menuchange', [App\Http\Controllers\HomeController::class, 'menuchange'])->name('menuchange');
 
+
 // admin
 
 Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
@@ -56,5 +57,7 @@ Route::get('/menucreate', [App\Http\Controllers\AdminController::class, 'menucre
 Route::get('/menudelete{id}', [App\Http\Controllers\AdminController::class, 'menudelete'])->name('menudelete');
 Route::get('/menuupdate{id}', [App\Http\Controllers\AdminController::class, 'menuupdate'])->name('menuupdate');
 Route::post('/menuprocess', [App\Http\Controllers\AdminController::class, 'menuprocess'])->name('menuprocess');
+Route::get('/services', [App\Http\Controllers\AdminController::class, 'services'])->name('services');
+Route::get('/servicecreate', [App\Http\Controllers\AdminController::class, 'servicecreate'])->name('servicecreate');
 
 

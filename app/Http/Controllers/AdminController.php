@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Gallery;
 use App\Models\Menu;
 use App\Models\Place;
+use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\MultipleInstanceManager;
@@ -197,5 +198,13 @@ class AdminController extends Controller
         $menu=Menu::find($id);
         return view('admin.menucreate',compact('menu'));
 
+    }
+    public function services(Request $request){
+        $services=Services::all();
+        return view('admin.services',compact('services'));
+
+    }
+    public function servicecreate(Request $request){
+        return view('admin.servicecreate');
     }
 }
