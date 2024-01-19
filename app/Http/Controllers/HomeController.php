@@ -26,7 +26,7 @@ class HomeController extends Controller
         $menu = Menu::all();
         $services = Services::latest()->take(8)->get();
 
-        return view("users.index", compact('country', 'city', 'place', 'gallery', 'menu','services'));
+        return view("users.index", compact('country', 'city', 'place', 'gallery', 'menu', 'services'));
     }
     public function login()
     {
@@ -136,10 +136,21 @@ class HomeController extends Controller
     }
     public function menuchange(Request $request)
     {
-        $menu=Menu::where(['category'=> $request->category])->get();
+        $menu = Menu::where(['category' => $request->category])->get();
         // dd($request);
         return response()->json($menu);
+    }
+    public function booking(Request $request)
+    {
+        $book=Book::orderBy('date', 'ASC')->get();
+        return view('users.booking',compact('book'));
+    }
+    public function userbooking(Request $request){
+        $auth=Auth::user();
+        // dd($auth->id);
+        $book = Book::where('user_id', $auth->id)->get();
+        // dd($book);
+        return view('users.userbooking',compact('book'));
 
     }
-    
 }

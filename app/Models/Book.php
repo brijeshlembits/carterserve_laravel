@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Book extends Model
 {
@@ -18,8 +19,8 @@ class Book extends Model
         $country=Country::all();
         $city=city::all();
         $place=Place::all();
-        
-
+        $auth=Auth::user();
+        $book->user_id=$auth->id;
         $book->email = $postdata['email'];
         $book->date = $postdata['date'];
         $book->phone = $postdata['phone'];

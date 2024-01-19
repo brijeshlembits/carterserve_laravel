@@ -209,33 +209,30 @@ class AdminController extends Controller
     }
     public function serviceprocess(Request $request)
     {
-        if($id=$request->id){
-            $services=Services::find($id);
+        if ($id = $request->id) {
+            $services = Services::find($id);
             // dd($request->input('old_image'));
-            $services->icon=$request->input('old_image');
-        }else{
+            $services->icon = $request->input('old_image');
+        } else {
             $services = new Services();
-            $services->icon= $request->selectIcon;
+            $services->icon = $request->selectIcon;
         }
-        $services->title= $request->title;
-        $services->description= $request->description;
+        $services->title = $request->title;
+        $services->description = $request->description;
         // dd($request->selectedIcon);  
         $services->save();
         // $ser=Services::latest()->first();
         return redirect()->route('services');
-       
-
     }
-    public function servicedelete(Request $request, $id){
-        $deleteservice=Services::find($id);
+    public function servicedelete(Request $request, $id)
+    {
+        $deleteservice = Services::find($id);
         $deleteservice->delete();
         return redirect()->route('services');
     }
-    public function serviceupdate(Request $request , $id){
-        $service=Services::find($id);
+    public function serviceupdate(Request $request, $id)
+    {
+        $service = Services::find($id);
         return view('admin.servicecreate', compact('service'));
-
-       
-        
     }
 }

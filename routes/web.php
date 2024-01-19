@@ -31,6 +31,8 @@ Route::post('/city', [App\Http\Controllers\HomeController::class, 'city'])->name
 Route::post('/place', [App\Http\Controllers\HomeController::class, 'place'])->name('place');
 Route::post('/eventchange', [App\Http\Controllers\HomeController::class, 'eventchange'])->name('eventchange');
 Route::post('/menuchange', [App\Http\Controllers\HomeController::class, 'menuchange'])->name('menuchange');
+Route::get('/booking', [App\Http\Controllers\HomeController::class, 'booking'])->name('booking');
+Route::get('/userbooking', [App\Http\Controllers\HomeController::class, 'userbooking'])->name('userbooking');
 
 
 // admin

@@ -47,10 +47,12 @@
                             <div class="col-lg-4 col-md-6">
                                 <select class="form-select border-primary p-2" name="event_type"
                                     aria-label="Default select example">
-                                    <option selected>Small Event</option>
-                                    <option value="event_type">Event Type</option>
-                                    <option value="big_event">Big Event</option>
-                                    <option value="small_event">Small Event</option>
+                                    {{-- <option selected>Small Event</option> --}}
+                                    <option  selected>Event Type</option>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Cocktail">Cocktail</option>
+                                    <option value="Buffer">Buffer</option>
                                 </select>
                             </div>
                             <div class="col-lg-4 col-md-6">
@@ -68,7 +70,7 @@
                             <div class="col-lg-4 col-md-6">
                                 <select class="form-select border-primary p-2" name="food"
                                     aria-label="Default select example">
-                                    <option selected>Vegetarian</option>
+                                    <option selected>Veg or Non_veg</option>
                                     <option value="veg">Vegetarian</option>
                                     <option value="non_veg">Non Vegetarian</option>
                                 </select>
@@ -86,8 +88,13 @@
                                     placeholder="Enter Your Email">
                             </div>
                             <div class="col-12 text-center">
+                                @if(Auth::check())
                                 <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Submit
                                     Now</button>
+                                    @else
+                                    <a href="{{route('login')}}" class="btn btn-primary px-5 py-3 rounded-pill">Submit
+                                        Now</a>
+                                    @endif
                             </div>
                         </div>
                     </div>
