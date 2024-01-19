@@ -153,4 +153,7 @@ class HomeController extends Controller
         return view('users.userbooking',compact('book'));
 
     }
+    public function menuitems(Request $request){
+        return view('users.menuitems');
+    }
 }

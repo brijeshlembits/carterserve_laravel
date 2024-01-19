@@ -94,7 +94,7 @@
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="" class="nav-item nav-link">Services</a>
                     <a href="event.html" class="nav-item nav-link">Events</a>
-                    <a href="" class="nav-item nav-link">Menu</a>
+                    <a href="{{route('menuitems')}}" class="nav-item nav-link">Menu</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu bg-light">

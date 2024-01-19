@@ -142,11 +142,11 @@
     <!-- Navbar start -->
     @include('users.header')
     <!-- Navbar End -->
-    <div class="all-cards">
+    <div class="all-cards sortable-cards">
         @foreach ($book as $book)
             <?php
-            $date = \Carbon\Carbon::parse($book->date);
-            $today = \Carbon\Carbon::now();
+            $date = \Carbon\Carbon::parse($book->date)->setTimezone('Asia/Kolkata');
+            $today = \Carbon\Carbon::now()->setTimezone('Asia/Kolkata');
             // dd($today);
             $leftDays = $date->diffInDays($today);
             $morethandays=$date->addDays(5) < $today;
@@ -156,7 +156,7 @@
             ?>
             @if (!$morethandays )
             
-                <div class="card">
+                <div class="card service-card">
                     <div class="card-header">
                         <b><i class="fas fa-book"></i> Booking</b>
                     </div>
@@ -220,6 +220,15 @@
 
 
     <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        const sortable = new Sortable(document.querySelector('.sortable-cards'), {
+            swapThreshold: 1,
+            invertSwap: true,
+            animation: 150,
+            handle: '.service-card',
+        });
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="theme/lib/wow/wow.min.js"></script>

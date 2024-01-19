@@ -33,6 +33,7 @@ Route::post('/eventchange', [App\Http\Controllers\HomeController::class, 'eventc
 Route::post('/menuchange', [App\Http\Controllers\HomeController::class, 'menuchange'])->name('menuchange');
 Route::get('/booking', [App\Http\Controllers\HomeController::class, 'booking'])->name('booking');
 Route::get('/userbooking', [App\Http\Controllers\HomeController::class, 'userbooking'])->name('userbooking');
+Route::get('/menuitems', [App\Http\Controllers\HomeController::class, 'menuitems'])->name('menuitems');
 
 
 // admin
