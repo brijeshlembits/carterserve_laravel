@@ -59,5 +59,8 @@ Route::get('/menuupdate{id}', [App\Http\Controllers\AdminController::class, 'men
 Route::post('/menuprocess', [App\Http\Controllers\AdminController::class, 'menuprocess'])->name('menuprocess');
 Route::get('/services', [App\Http\Controllers\AdminController::class, 'services'])->name('services');
 Route::get('/servicecreate', [App\Http\Controllers\AdminController::class, 'servicecreate'])->name('servicecreate');
+Route::get('/servicedelete{id}', [App\Http\Controllers\AdminController::class, 'servicedelete'])->name('servicedelete');
+Route::get('/serviceupdate{id}', [App\Http\Controllers\AdminController::class, 'serviceupdate'])->name('serviceupdate');
+Route::any('/serviceprocess', [App\Http\Controllers\AdminController::class, 'serviceprocess'])->name('serviceprocess');
 
 

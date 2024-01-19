@@ -13,7 +13,16 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
+       .icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+        width: 43px;
+    }
+
         .description{
             height: auto;
          width: 300px;
@@ -56,10 +65,10 @@
                                 <td>{{$service->title}}</td>
                                
                                 <td ><div class="description">{{$service->description}}</div></td>
-                                <td><img src="{{$service->image}}" alt="" style="height: 70px !important; width:70px !important;"></td>
+                                <td><i class="fas {{$service->icon}} icon"></i></td>
                               
-                                <td><a href="{{route('menudelete',$service->id)}}" class="btn btn-danger">delete</a>
-                                    <a href="{{route('menuupdate',$service->id)}}" class="btn btn-info">update</a></td>
+                                <td><a href="{{route('servicedelete',$service->id)}}" class="btn btn-danger">delete</a>
+                                    <a href="{{route('serviceupdate',$service->id)}}" class="btn btn-info">update</a></td>
                                 
                               </tr>
                               @endforeach

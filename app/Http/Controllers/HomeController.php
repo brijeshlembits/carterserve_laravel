@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\Gallery;
 use App\Models\Menu;
 use App\Models\Place;
+use App\Models\Services;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,9 @@ class HomeController extends Controller
         $place = Place::all();
         $gallery = Gallery::all();
         $menu = Menu::all();
-        return view("users.index", compact('country', 'city', 'place', 'gallery', 'menu'));
+        $services = Services::latest()->take(8)->get();
+
+        return view("users.index", compact('country', 'city', 'place', 'gallery', 'menu','services'));
     }
     public function login()
     {

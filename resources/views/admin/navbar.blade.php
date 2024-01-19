@@ -60,7 +60,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{route('services')}}">
-          <i class="mdi mdi-chart-bar menu-icon"></i>
+          <i class="mdi  mdi-airplane menu-icon"></i>
           <span class="menu-title">Services</span>
         </a>
       </li>

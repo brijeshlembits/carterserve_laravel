@@ -126,9 +126,9 @@
                     <div class="row g-4">
                         <div class="col-lg-12">
                             <div class="row g-4" id="createimg">
-                                
 
-                               
+
+
                                 {{-- <div class="col-md-6 col-lg-3">
                                     <div class="event-img position-relative">
                                         <img  class="img-fluid rounded w-100" src="img/event-2.jpg" alt="">
@@ -167,7 +167,7 @@
                 res.forEach(element => {
                     let image = element.image;
                     const imagedata = image.split("|");
-                    let category=element.category
+                    let category = element.category
                     console.log(imagedata);
 
                     imagedata.forEach((imgSrc, index) => {
@@ -175,12 +175,14 @@
                         $('#createimg').append(
                             ' <div  class="col-md-6 col-lg-3 wow bounceInUp"><div class="event-img position-relative"> <img id="first-img" class="img-fluid rounded w-100" src="' +
                             imgSrc +
-                            '" alt="">  <div class="event-overlay d-flex flex-column p-4">   <h4 class="me-auto">'+category+'</h4> <a href="'+imgSrc+'" data-lightbox="event-1" class="my-auto"><i class="fas fa-search-plus text-dark fa-2x"></i></a></div></div></div>'
-                            );
+                            '" alt="">  <div class="event-overlay d-flex flex-column p-4">   <h4 class="me-auto">' +
+                            category + '</h4> <a href="' + imgSrc +
+                            '" data-lightbox="event-1" class="my-auto"><i class="fas fa-search-plus text-dark fa-2x"></i></a></div></div></div>'
+                        );
                     });
                 });
-                
-                
+
+
             }
         });
     }

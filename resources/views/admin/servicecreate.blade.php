@@ -26,6 +26,7 @@
         font-size: 24px;
         cursor: pointer;
         transition: color 0.3s ease-in-out;
+        width: 43px;
     }
 
     .icon:hover {
@@ -34,6 +35,10 @@
 
     .selected {
         color: #e74c3c; /* Change the color to your desired selection color */
+    }
+    .icon-box{
+        overflow-y: scroll;
+    height: 65px;
     }
 </style>
 </head>
@@ -50,20 +55,21 @@
                         <div class="card-body">
                             <h4 class="card-title">Menu form</h4>
                             <p class="card-description"></p>
-                            <form class="forms-sample" action="{{route('menuprocess')}}" method="post" enctype="multipart/form-data">
+                            <form class="forms-sample" action="{{route('serviceprocess')}}" method="post" enctype="multipart/form-data">
                                 @csrf
+                             
                                 <input type="hidden" name="id" value={{@$service->id}}>
                                 <input type="hidden" name="old_image" value={{@$service->icon}}>
                                 <div class="form-group">
                                     <label for="exampleInputUsername1" >Title</label>
-                                    <input type="text" name="title" value="{{@$service->title}}" class="form-control" id="exampleInputUsername1"
+                                    <input type="text" name="title" id="title" value="{{@$service->title}}" class="form-control" id="exampleInputUsername1"
                                         placeholder="title Name" />
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputUsername1">Description</label>
                                     <textarea
                                     class="form-control"
-                                    id="exampleTextarea1"
+                                    id="description"
                                     rows="4"
                                     name="description"
                                     placeholder="Add Text"
@@ -71,22 +77,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputUsername1" >Select Icon</label>
+                                    <div class="icon-box">
                                     <div id="iconToolbox">
                                   
-                                        <i class="fas fa-hamburger icon" onclick="selectIcon(this, 'fa-heart')"></i>
-                                        <i class="fas fa-hotdog icon" onclick="selectIcon(this, 'fa-heart')"></i>
-                                        <i class="fas fa-heart icon" onclick="selectIcon(this, 'fa-heart')"></i>
-                                        <i class="fas fa-pizza-slice icon" onclick="selectIcon(this, 'fa-heart')"></i>
-                                        <i class="fas fa-user icon" onclick="selectIcon(this, 'fa-heart')"></i>
-                                        <i class="fas fa-wine-glass-alt icon" onclick="selectIcon(this, 'fa-heart')"></i>
-                                        <i class="fas fa-star icon" onclick="selectIcon(this, 'fa-star')"></i>
-                                        <i class="fas fa-walking icon" onclick="selectIcon(this, 'fa-star')"></i>
-                                        <i class="fas fa-trash icon" onclick="selectIcon(this, 'fa-star')"></i>
-                                        <i class="fas fa-smile icon" onclick="selectIcon(this, 'fa-smile')"></i>
-                                        <i class="fas fa-wheelchair icon" onclick="selectIcon(this, 'fa-smile')"></i>
-                                        <i class="fas fa-utensils icon" onclick="selectIcon(this, 'fa-smile')"></i>
+                                    
+                                        <i class="fas fa-hamburger icon @if(@$service->icon=='fa-hamburger')selected @endif" onclick="selectIcon(this, 'fa-hamburger')"  value="fa-hamburger"   ></i>
+                                        <i class="fas fa-hotdog icon  @if(@$service->icon=='fa-hotdog')selected @endif" onclick="selectIcon(this, 'fa-hotdog')"></i>
+                                        <i class="fas fa-heart icon @if(@$service->icon=='fa-heart')selected @endif" onclick="selectIcon(this, 'fa-heart')"></i>
+                                        <i class="fas fa-pizza-slice icon @if(@$service->icon=='fa-pizza-slice')selected @endif" onclick="selectIcon(this, 'fa-pizza-slice')"></i>
+                                        <i class="fas fa-user icon @if(@$service->icon=='fa-user')selected @endif" onclick="selectIcon(this, 'fa-heart')"></i>
+                                        <i class="fas fa-wine-glass-alt icon @if(@$service->icon=='fa-wine-glass-alt')selected @endif" onclick="selectIcon(this, 'fa-wine-glass-alt')"></i>
+                                        <i class="fas fa-star icon @if(@$service->icon=='fa-star')selected @endif" onclick="selectIcon(this, 'fa-star')"></i>
+                                        <i class="fas fa-walking icon @if(@$service->icon=='fa-walking')selected @endif" onclick="selectIcon(this, 'fa-walking')"></i>
+                                        <i class="fas fa-trash icon @if(@$service->icon=='fa-trash')selected @endif" onclick="selectIcon(this, 'fa-trash')"></i>
+                                        <i class="fas fa-smile icon @if(@$service->icon=='fa-smile')selected @endif" onclick="selectIcon(this, 'fa-smile')" value="fa-smile"></i>
+                                        <i class="fas fa-wheelchair icon @if(@$service->icon=='fa-wheelchair')selected @endif" onclick="selectIcon(this, 'fa-wheelchair')"  value="fa-wheelchair"></i>
+                                        <i class="fas fa-utensils icon @if(@$service->icon=='fa-utensils')selected @endif" onclick="selectIcon(this, 'fa-utensils')" value="fa-utensils"></i>
                                         <!-- Add more icons as needed -->
                                     </div>
+                                </div>
                                     
                                 </div>
                               
@@ -109,10 +118,25 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>
-    <script>
+   <!-- Add this line to include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+   
         function selectIcon(iconElement, iconClass) {
             // Remove 'selected' class from all icons
             const icons = document.querySelectorAll('.icon');
+            // const ico=document.getElementsByClassName('icon');
+            // for(let i=0;i<ico.length;i++){
+
+            //     console.log(ico[i]);
+            // }
+            const title = document.getElementById("title");
+            const description = document.getElementById("description");
+            console.log(iconClass);
+
+            // console.log(title.value);
+
             icons.forEach(icon => {
                 icon.classList.remove('selected');
             });
@@ -120,23 +144,30 @@
             // Add 'selected' class to the clicked icon
             iconElement.classList.add('selected');
 
-            // Make a POST request to your server to save the selected icon
-            fetch('/your-backend-endpoint', {
+            // Make an AJAX request to your server to save the selected icon
+            $.ajax({
+                url: '{{ route("serviceprocess") }}',
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    selectIcon: iconClass,
+                    _token: "{{ csrf_token() }}",
+                    title: title.value, 
+                    description: description.value 
+                }),
+                success: function (data) {
+                    console.log('Icon saved successfully:', data);
                 },
-                body: JSON.stringify({ selectedIcon: iconClass }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Icon saved successfully:', data);
-            })
-            .catch(error => {
-                console.error('Error saving icon:', error);
+                error: function (error) {
+                    console.error('Error saving icon:', error);
+                }
             });
         }
-    </script>
+      
+ 
+</script>
+
+
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="assets/vendors/chart.js/Chart.min.js"></script>

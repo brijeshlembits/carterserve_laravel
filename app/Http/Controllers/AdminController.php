@@ -163,48 +163,79 @@ class AdminController extends Controller
     {
         return view('admin.menucreate');
     }
-    public function menuprocess(Request $request){
-        if($id=$request->id){
+    public function menuprocess(Request $request)
+    {
+        if ($id = $request->id) {
             $menu = Menu::find($id);
             // dd($menu);
-            $menu->image= $request->input('old_image');
+            $menu->image = $request->input('old_image');
             // dd( $menu->image);
-        }else{
+        } else {
 
             $menu = new Menu();
-            if($data=$request->file('image')){
-                $image= $request->file('image').'.'.$request->image->extension();
-                $move=$request->image->move('images/', $image);
-                $menu->image=$move;
-    
+            if ($data = $request->file('image')) {
+                $image = $request->file('image') . '.' . $request->image->extension();
+                $move = $request->image->move('images/', $image);
+                $menu->image = $move;
             }
         }
-        $menu->title=$request->input('title');
-        $menu->description=$request->input('description');
-        $menu->price=$request->input('price');
-        $menu->category=$request->input('category');
-      
+        $menu->title = $request->input('title');
+        $menu->description = $request->input('description');
+        $menu->price = $request->input('price');
+        $menu->category = $request->input('category');
+
         $menu->save();
         return redirect()->route('menu');
-
     }
-    public function menudelete(Request $request,$id){
-        $find=Menu::find($id);
+    public function menudelete(Request $request, $id)
+    {
+        $find = Menu::find($id);
         $find->delete();
         return redirect()->route('menu');
-
     }
-    public function menuupdate(Request $request,$id){
-        $menu=Menu::find($id);
-        return view('admin.menucreate',compact('menu'));
-
+    public function menuupdate(Request $request, $id)
+    {
+        $menu = Menu::find($id);
+        return view('admin.menucreate', compact('menu'));
     }
-    public function services(Request $request){
-        $services=Services::all();
-        return view('admin.services',compact('services'));
-
+    public function services(Request $request)
+    {
+        $services = Services::all();
+        return view('admin.services', compact('services'));
     }
-    public function servicecreate(Request $request){
+    public function servicecreate(Request $request)
+    {
         return view('admin.servicecreate');
+    }
+    public function serviceprocess(Request $request)
+    {
+        if($id=$request->id){
+            $services=Services::find($id);
+            // dd($request->input('old_image'));
+            $services->icon=$request->input('old_image');
+        }else{
+            $services = new Services();
+            $services->icon= $request->selectIcon;
+        }
+        $services->title= $request->title;
+        $services->description= $request->description;
+        // dd($request->selectedIcon);  
+        $services->save();
+        // $ser=Services::latest()->first();
+        return redirect()->route('services');
+       
+
+    }
+    public function servicedelete(Request $request, $id){
+        $deleteservice=Services::find($id);
+        $deleteservice->delete();
+        return redirect()->route('services');
+    }
+    public function serviceupdate(Request $request , $id){
+        $service=Services::find($id);
+        return view('admin.servicecreate', compact('service'));
+
+       
+        
     }
 }
