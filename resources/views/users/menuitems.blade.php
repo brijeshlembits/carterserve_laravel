@@ -657,7 +657,8 @@
             <div class="RestaurantMenu__Component-sc-1ch5kvj-0 gRPOUR">
                 <div class="RestaurantMenu__Container-sc-1ch5kvj-1 bEGGB">
                     <div class="TabsControl__Component-sc-ysw264-0 lalbuX icon-data">
-                        <div class="TabsControlItem__TabsControlItemComponent-sc-u0xhvn-1 gPBYWr TabsControl__StyledTabsItem-sc-ysw264-1 gZrGol"
+                        @forEach($menu as $menu)
+                        <div onclick="showdatamenu()" class="TabsControlItem__TabsControlItemComponent-sc-u0xhvn-1 gPBYWr TabsControl__StyledTabsItem-sc-ysw264-1 gZrGol"
                             widths=",48,73,141,60,61">
                             <div class="Icon__IconContainer-sc-11wrh3u-0 eRiZlZ" style="margin-bottom: 15px;">
                                 <div>
@@ -666,8 +667,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="TabsControlItem__Name-sc-u0xhvn-0 jXrhxH">Pizza</div>
+                            <div class="TabsControlItem__Name-sc-u0xhvn-0 jXrhxH" value="">Pizza</div>
                         </div>
+                        @endforeach
                         <div class="TabsControlItem__TabsControlItemComponent-sc-u0xhvn-1 UBZTY TabsControl__StyledTabsItem-sc-ysw264-1 gZrGol"
                             widths=",48,73,141,60,61">
                             <div class="Icon__IconContainer-sc-11wrh3u-0 hktoOO" style="margin-bottom: 15px;">
@@ -847,6 +849,10 @@
             animation: 150,
             handle: '.service-card',
         });
+
+        function showdatamenu(){
+
+        }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

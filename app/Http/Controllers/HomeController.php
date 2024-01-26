@@ -148,12 +148,18 @@ class HomeController extends Controller
     public function userbooking(Request $request){
         $auth=Auth::user();
         // dd($auth->id);
-        $book = Book::where('user_id', $auth->id)->get();
+        if($auth){
+
+            $book = Book::where('user_id', $auth->id)->get();
+            return view('users.userbooking',compact('book'));
+        }else{
+            return redirect()->route('login');
+        }
         // dd($book);
-        return view('users.userbooking',compact('book'));
 
     }
     public function menuitems(Request $request){
-        return view('users.menuitems');
+        $menu=Menu::all();
+        return view('users.menuitems',compact('menu'));
     }
 }
